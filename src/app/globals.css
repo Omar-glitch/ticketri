@@ -1,107 +1,112 @@
-:root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
-
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
+*,
+::before,
+::after {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --max-width: 75rem;
+  --min-width: 17.5rem;
+  --transition: 0.4s;
+  --appbar-height: 3.4375rem;
+  --modal-count: 0;
+  --header-z-index: 9;
+  --portal-z-index: 10;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.light-theme {
+  --primary: #2f66d3;
+  --primary-dark: #2c46b3;
+  --primary-light: #67b8ff;
+  --text: #151618;
+  --text-secondary: #605959;
+  --paper: #f9f9f9;
+  --paper-secondary: #c3c3c3;
+  --success: #4caf50;
+  --info: #03a9f4;
+  --warning: #ff9800;
+  --error: #ef5350;
+  --shadow: #d5d5d5;
+  --disabled: #c9c8c8;
+  --disabled-text: #727272;
+  --success-light: #a5d6a7;
+  --success-dark: #388e3b;
+  --info-light: #81d3fa;
+  --info-dark: #0487d1;
+  --warning-light: #ffcd80;
+  --warning-dark: #f57d00;
+  --error-light: #ef9a9a;
+  --error-dark: #e53835;
+  --primary-channel: 47, 102, 211;
+  --primary-dark-channel: 44, 70, 179;
+  --text-channel: 21, 22, 24;
+  --primary-light-channel: 103, 184, 255;
+  --text-secondary-channel: 96, 89, 89;
+  --paper-channel: 249, 249, 249;
+  --paper-secondary-channel: 195, 195, 195;
+  --success-channel: 76, 175, 80;
+  --info-channel: 3, 169, 244;
+  --warning-channel: 255, 152, 0;
+  --error-channel: 239, 83, 80;
+  --shadow-channel: 213, 213, 213;
+  --color-sheme: light;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.dark-theme {
+  --primary: #67b8ff;
+  --primary-dark: #2f99ff;
+  --primary-light: #bddfff;
+  --text: #f9f9f9;
+  --text-secondary: #9c9c9c;
+  --paper: #151618;
+  --paper-secondary: #474747;
+  --success: #7fe282;
+  --info: #75cbf3;
+  --warning: #ffc36a;
+  --error: #ff8b89;
+  --shadow: #3d3a3a;
+  --disabled: #979797;
+  --disabled-text: #e7e6e6;
+  --success-light: #caf2ca;
+  --success-dark: #36c040;
+  --info-light: #ade0f8;
+  --info-dark: #00a8ea;
+  --warning-light: #ffdba6;
+  --warning-dark: #fb9900;
+  --error-light: #ffc5ca;
+  --error-dark: #f45c5d;
+  --primary-channel: 103, 184, 255;
+  --primary-dark-channel: 47, 153, 255;
+  --primary-light-channel: 189, 223, 255;
+  --text-channel: 249, 249, 249;
+  --text-secondary-channel: 156, 156, 156;
+  --paper-channel: 21, 22, 24;
+  --paper-secondary-channel: 71, 71, 71;
+  --success-channel: 127, 226, 130;
+  --info-channel: 117, 203, 243;
+  --warning-channel: 255, 195, 106;
+  --error-channel: 255, 139, 137;
+  --shadow-channel: 61, 58, 58;
+  --color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+#portal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  color-scheme: var(--color-scheme);
 }
