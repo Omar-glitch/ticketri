@@ -12,8 +12,8 @@ export const USER_AREAS = [
 ];
 
 export const userBaseSchema = z.object({
-  name: z.string().trim().min(3).max(32),
-  email: z.string().trim().email().min(5).max(75),
+  name: z.string().toLowerCase().trim().min(3).max(32),
+  email: z.string().toLowerCase().trim().email().min(5).max(75),
   password: z.string().trim().min(3).max(100),
   role: z.enum(["admin", "user"]),
   area: z.enum([

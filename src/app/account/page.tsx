@@ -8,9 +8,19 @@ export default async function Page() {
 
   return (
     <Main>
-      {session.user.email}
-      {session.user.name}
-      {session.user.role}
+      <div
+        style={{
+          maxWidth: "62.5rem",
+          margin: "auto",
+          width: "96%",
+          color: "var(--text)",
+        }}
+      >
+        <h1>Mi cuenta</h1>
+        <p style={{ margin: "0.75rem 0" }}>Nombre: {session.user.name}</p>
+        <p style={{ margin: "0.75rem 0" }}>Email: {session.user.email}</p>
+        <p style={{ margin: "0.75rem 0" }}>Role: {session.user.role}</p>
+      </div>
     </Main>
   );
 }

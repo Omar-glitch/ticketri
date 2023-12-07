@@ -30,6 +30,7 @@ export default function SelectModalActions({
         <IconButton
           title="Cerrar"
           $size="1.375rem"
+          $ml="0.25rem"
           $color="primary"
           onClick={closeModal}
         >

@@ -104,9 +104,9 @@ export default function RHFUserSelect({
               onExit={showScrollbar}
             >
               {(state) => (
-                <ModalContainer $z="0">
+                <ModalContainer $z="10">
                   <PortalOverlay
-                    $z="0"
+                    $z="10"
                     style={{ ...overlayTransition[state] }}
                     onClick={() => setShow(false)}
                   />
@@ -128,42 +128,61 @@ export default function RHFUserSelect({
                       value={search}
                       error=""
                     />
-                    {users
-                      .filter((user) =>
-                        user.name.toLowerCase().includes(search.toLowerCase())
-                      )
-                      .map((user) => (
-                        <OptionItem
-                          onClick={() => onChange(user.name)}
-                          key={user.id}
-                        >
-                          {user.name}
-                        </OptionItem>
-                      ))}
+                    <div
+                      style={{
+                        maxHeight: "7.5rem",
+                        minHeight: "7.5rem",
+                        overflowY: "scroll",
+                      }}
+                    >
+                      {users
+                        .filter((user) =>
+                          user.name.toLowerCase().includes(search.toLowerCase())
+                        )
+                        .map((user) => (
+                          <OptionItem
+                            onClick={() => {
+                              onChange(user.name);
+                              setShow(false);
+                              setSearch("");
+                            }}
+                            key={user.id}
+                          >
+                            <p>{user.name}</p>
+                            <p
+                              style={{
+                                fontSize: "0.75rem",
+                                color: "var(--text-secondary)",
+                                marginLeft: "auto",
+                              }}
+                            >
+                              {user.area}
+                            </p>
+                          </OptionItem>
+                        ))}
+                    </div>
                   </SelectContainer>
                 </ModalContainer>
               )}
             </Transition>
           </Portal>
-          <div onClick={() => setShow(true)} onBlur={onBlur}>
-            <InputLabel
+          <InputLabel
+            $error={Boolean(error)}
+            onClick={() => setShow(!show)}
+            onBlur={onBlur}
+          >
+            <Placeholder
+              $active={value === 0 || Boolean(value)}
               $error={Boolean(error)}
-              onClick={() => setShow(!show)}
-              onBlur={onBlur}
             >
-              <Placeholder
-                $active={value === 0 || Boolean(value)}
-                $error={Boolean(error)}
-              >
-                {config.placeholder}
-              </Placeholder>
-              {value}
-              <IconLabel>
-                <UserSVG />
-              </IconLabel>
-              {Boolean(error) && <ErrorMessage>{error}</ErrorMessage>}
-            </InputLabel>
-          </div>
+              {config.placeholder}
+            </Placeholder>
+            {value}
+            <IconLabel>
+              <UserSVG />
+            </IconLabel>
+            {Boolean(error) && <ErrorMessage>{error}</ErrorMessage>}
+          </InputLabel>
         </>
       )}
     />

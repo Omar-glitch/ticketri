@@ -1,22 +1,30 @@
-import TicketForm from "@/components/Forms/TicketForm";
-import { TCreateTicket } from "@/schemas/TicketSchema";
+import UpdateTicketForm from "@/components/Forms/UpdateTicketForm";
+import getMetadata from "@/lib/metadata";
+import { TUpdateTicket } from "@/schemas/TicketSchema";
 import { Main } from "@/styles/GlobalStyles";
 import { getObject } from "@/utils/objectQueries";
 import { notFound } from "next/navigation";
+
+export const metadata = getMetadata({
+  title: "Editar ticket",
+  description: "Editar tickets",
+  addCompanyNameInTitle: true,
+  url: "/tickets/edit",
+});
 
 export default async function Page({
   params: { slug },
 }: {
   params: { slug: string };
 }) {
-  let ticket: TCreateTicket | null = await getObject(
+  let ticket: TUpdateTicket | null = await getObject(
     `http://localhost:3000/api/tickets/${slug}`
   );
   if (!ticket) notFound();
 
   return (
     <Main>
-      <TicketForm updateMode={{ initialTicket: ticket, id: slug }} />
+      <UpdateTicketForm updateMode={{ initialTicket: ticket, id: slug }} />
     </Main>
   );
 }

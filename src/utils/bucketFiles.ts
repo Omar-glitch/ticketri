@@ -22,8 +22,6 @@ export const uploadFileToBucket = async (file: File | null) => {
     const { metadata } = await uploadBytes(storageRef, file);
     const { fullPath } = metadata;
     if (!fullPath) return { error: "could not uploadFile" };
-    const fileUrl = `https://storage.googleapis.com/${storageRef.bucket}/${storageRef.fullPath}`;
-    console.log(fileUrl);
     return { message: newFileName };
   } catch (error) {
     return { error: getErrorMessage(error) };
@@ -61,6 +59,28 @@ export const saveFiles = async (files: File[] | null) => {
       const data = await uploadFileToBucket(file);
       if (!data.error) {
         nameFilesAdded.push(data.message);
+      }
+    }
+  }
+  return nameFilesAdded;
+};
+
+export const updateFiles = async (
+  files: Array<File | string> | null,
+  prevFiles: string[]
+) => {
+  const nameFilesAdded = [];
+  if (files) {
+    for (const prevFile of prevFiles) {
+      if (!files.includes(prevFile)) await deleteFileFromBucket(prevFile);
+    }
+
+    for (const file of files) {
+      if (typeof file !== "string") {
+        const data = await uploadFileToBucket(file);
+        if (!data.error) nameFilesAdded.push(data.message);
+      } else {
+        nameFilesAdded.push(file);
       }
     }
   }

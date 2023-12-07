@@ -20,6 +20,7 @@ export default function TicketTable({ tickets }: { tickets: TicketDTO[] }) {
             <th>Descripción</th>
             <th>Área</th>
             <th>Estado</th>
+            <th>Prioridad</th>
             <th>Usuario ticket</th>
             <th>Usuario asignado</th>
             <th>Fecha cierre</th>
@@ -38,6 +39,7 @@ export default function TicketTable({ tickets }: { tickets: TicketDTO[] }) {
                 </Td>
                 <Td>{ticket.area}</Td>
                 <Td>{ticket.status}</Td>
+                <Td>{ticket.priority}</Td>
                 <Td>{ticket.user}</Td>
                 <Td>{ticket.user_asigned}</Td>
                 <Td>{ticket.close_date}</Td>

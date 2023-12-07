@@ -12,7 +12,7 @@ import getErrorMessage from "@/utils/errorResponses";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { USERS_COLLECTION, UserEntity } from "../users/route";
+import { UserEntity, USERS_COLLECTION } from "../users/route";
 
 const DATABASE = process.env.MONGODB_DATABASE;
 const TICKETS_COLLECTION = "tickets";
@@ -22,6 +22,7 @@ export const ticketEntitySchema = z.object({
   user: ticketBaseSchema.shape.user,
   area: ticketBaseSchema.shape.area,
   category: ticketBaseSchema.shape.category,
+  priority: ticketBaseSchema.shape.priority,
   description: ticketBaseSchema.shape.description,
   status: ticketBaseSchema.shape.status,
   user_asigned: ticketBaseSchema.shape.user_asigned,
@@ -80,15 +81,14 @@ export async function POST(req: NextRequest) {
       category: formdata.get("category"),
       description: formdata.get("description"),
       status: "new",
+      priority: "unknown",
       user_asigned: "",
       close_date: "",
       files: fileNamesAdded,
     });
-    console.log(newTicket);
     const { insertedId } = await db
       .collection<TicketEntity>(TICKETS_COLLECTION)
       .insertOne(newTicket);
-    console.log(newTicket, insertedId);
     return NextResponse.json(
       TicketDTO.convertFromEntity({ ...newTicket, _id: insertedId })
     );
@@ -98,20 +98,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(errorMessage, { status: 400 });
   }
 }
-
-// const client = await clientPromise;
-// const db = client.db(DATABASE);
-// const session = await auth();
-// if (!isAdmin(session))
-//   return NextResponse.json("Not enough privileges", { status: 401 });
-// const body = await req.json();
-// const newTicket = ticketEntitySchema.parse({
-//   ...body,
-//   _id: new ObjectId(),
-// });
-// const { insertedId } = await db
-//   .collection<TicketEntity>(TICKETS_COLLECTION)
-//   .insertOne(newTicket);
-// return NextResponse.json(
-//   TicketDTO.convertFromEntity({ ...body, _id: insertedId })
-// );
