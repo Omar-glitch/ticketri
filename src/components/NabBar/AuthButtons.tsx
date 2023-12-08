@@ -17,7 +17,7 @@ type AuthButtonsProps = {
 };
 
 export default function AuthButtons({ view }: AuthButtonsProps) {
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   if (status !== "authenticated")
     return (
@@ -46,7 +46,7 @@ export default function AuthButtons({ view }: AuthButtonsProps) {
       `}
     >
       <Button as={Link} href="/account" $color="primary" $p="0.5rem 1rem">
-        Ver perfil
+        {data.user.name}
         <IconWrapper $size="1rem" $ml="0.25rem">
           <UserSVG />
         </IconWrapper>

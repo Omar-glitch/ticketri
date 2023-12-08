@@ -2,6 +2,7 @@ import { Table, Td } from "@/styles/TableStyles";
 import ButtonActionsTable, { ButtonTh } from "../Buttons/ButtonActionsTable";
 import { TicketDTO } from "@/schemas/TicketSchema";
 import { objectIdToDateFormat } from "@/utils/texts";
+import { TextEllipsis } from "@/styles/GlobalStyles";
 
 export default function TicketTable({ tickets }: { tickets: TicketDTO[] }) {
   return (
@@ -35,7 +36,9 @@ export default function TicketTable({ tickets }: { tickets: TicketDTO[] }) {
                 <Td>{ticket.id}</Td>
                 <Td $minw="5rem">{ticket.category}</Td>
                 <Td $w="100%" $minw="7.5rem">
-                  {ticket.description}
+                  <TextEllipsis $h="4.75rem" $lc={4}>
+                    {ticket.description}
+                  </TextEllipsis>
                 </Td>
                 <Td>{ticket.area}</Td>
                 <Td>{ticket.status}</Td>

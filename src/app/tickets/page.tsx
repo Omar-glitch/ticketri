@@ -8,6 +8,8 @@ import { Flex, Main } from "@/styles/GlobalStyles";
 import { getObjects } from "@/utils/objectQueries";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const tickets: TicketDTO[] = await getObjects(
     "http://localhost:3000/api/tickets"

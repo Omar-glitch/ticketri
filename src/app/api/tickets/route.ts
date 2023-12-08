@@ -1,36 +1,19 @@
-import { auth, isAdmin, isAuthenticated } from "@/auth";
-import { formidablePromise } from "@/lib/formidable";
+import { auth, isAuthenticated } from "@/auth";
 import clientPromise from "@/lib/mongodb";
-import { TicketDTO, ticketBaseSchema } from "@/schemas/TicketSchema";
-import {
-  deleteFileFromBucket,
-  getDownloadURLFileBucket,
-  saveFiles,
-  uploadFileToBucket,
-} from "@/utils/bucketFiles";
+import { TicketDTO } from "@/schemas/TicketSchema";
+import { saveFiles } from "@/utils/bucketFiles";
 import getErrorMessage from "@/utils/errorResponses";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-import { UserEntity, USERS_COLLECTION } from "../users/route";
+import {
+  TICKETS_COLLECTION,
+  TicketEntity,
+  ticketEntitySchema,
+} from "@/constants/ticketCollection";
+import { USERS_COLLECTION, UserEntity } from "@/constants/userCollection";
 
 const DATABASE = process.env.MONGODB_DATABASE;
-const TICKETS_COLLECTION = "tickets";
-
-export const ticketEntitySchema = z.object({
-  _id: z.instanceof(ObjectId),
-  user: ticketBaseSchema.shape.user,
-  area: ticketBaseSchema.shape.area,
-  category: ticketBaseSchema.shape.category,
-  priority: ticketBaseSchema.shape.priority,
-  description: ticketBaseSchema.shape.description,
-  status: ticketBaseSchema.shape.status,
-  user_asigned: ticketBaseSchema.shape.user_asigned,
-  files: z.string().array(),
-  close_date: ticketBaseSchema.shape.close_date,
-});
-
-export type TicketEntity = z.infer<typeof ticketEntitySchema>;
+export const dynamic = 'force-dynamic'
 
 export async function GET(req: NextRequest) {
   try {

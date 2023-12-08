@@ -3,12 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "bson";
 import getErrorMessage from "@/utils/errorResponses";
 import { auth, isAdmin } from "@/auth";
-import { TicketEntity, ticketEntitySchema } from "../route";
 import { TCreateTicket, TUpdateTicket } from "@/schemas/TicketSchema";
 import { deleteFileFromBucket, updateFiles } from "@/utils/bucketFiles";
+import {
+  TICKETS_COLLECTION,
+  TicketEntity,
+  ticketEntitySchema,
+} from "@/constants/ticketCollection";
 
 const DATABASE = process.env.MONGODB_DATABASE;
-const TICKETS_COLLECTION = "tickets";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(
   req: NextRequest,

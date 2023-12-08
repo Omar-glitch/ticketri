@@ -16,6 +16,8 @@ export const metadata = getMetadata({
   url: "/users",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const users: UserDTO[] = await getObjects("http://localhost:3000/api/users");
 

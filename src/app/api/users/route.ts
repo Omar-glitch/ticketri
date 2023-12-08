@@ -3,24 +3,17 @@ import { UserDTO } from "@/schemas/UserSchema";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import getErrorMessage from "@/utils/errorResponses";
-import { userBaseSchema } from "@/schemas/UserSchema";
-import { z } from "zod";
 import { encrypt } from "@/lib/cypher";
 import { auth, isAdmin } from "@/auth";
+import {
+  USERS_COLLECTION,
+  UserEntity,
+  userEntitySchema,
+} from "@/constants/userCollection";
 
 const DATABASE = process.env.MONGODB_DATABASE;
-export const USERS_COLLECTION = "users";
 
-export const userEntitySchema = z.object({
-  _id: z.instanceof(ObjectId),
-  name: userBaseSchema.shape.name,
-  email: userBaseSchema.shape.email,
-  password: userBaseSchema.shape.password,
-  role: userBaseSchema.shape.role,
-  area: userBaseSchema.shape.area,
-});
-
-export type UserEntity = z.infer<typeof userEntitySchema>;
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {

@@ -1,14 +1,17 @@
 import clientPromise from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
-import { UserEntity, userEntitySchema } from "../route";
 import { ObjectId } from "bson";
 import { TCreateUser } from "@/schemas/UserSchema";
 import getErrorMessage from "@/utils/errorResponses";
 import { auth, isAdmin } from "@/auth";
 import { decrypt } from "@/lib/cypher";
+import {
+  USERS_COLLECTION,
+  UserEntity,
+  userEntitySchema,
+} from "@/constants/userCollection";
 
 const DATABASE = process.env.MONGODB_DATABASE;
-const USERS_COLLECTION = "users";
 
 export async function GET(
   req: NextRequest,
@@ -46,10 +49,12 @@ export async function PUT(
     if (!isAdmin(session))
       return NextResponse.json("Not enough privileges", { status: 401 });
     const body = await req.json();
+
     const updatedUser = userEntitySchema
       .omit({ _id: true })
       .partial()
       .parse(body);
+
     const insertedUpdatedUser = await db
       .collection<UserEntity>(USERS_COLLECTION)
       .findOneAndUpdate(

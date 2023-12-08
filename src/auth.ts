@@ -2,8 +2,8 @@ import { getServerSession } from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 import { NextAuthOptions, Session } from "next-auth";
 import clientPromise from "./lib/mongodb";
-import { UserEntity } from "./app/api/users/route";
 import { decrypt } from "./lib/cypher";
+import { UserEntity } from "./constants/userCollection";
 
 export const authOptions = {
   theme: {
