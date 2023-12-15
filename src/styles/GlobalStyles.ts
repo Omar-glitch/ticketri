@@ -347,13 +347,4 @@ export const TextEllipsis = styled.p<TextEllipsisProps>`
   -webkit-box-orient: vertical;
 `;
 
-// export const itemWrap = css<ItemWrapProps>`
-//   width: 100%;
-//   word-break: break-word;
-
-//   @media (min-aspect-ratio: ${props => props.$double ? '5 / 7' : '7 / 6'}) {
-//     width: ${props => props.$fullWidth ? '100%' : 'calc(50% - .5rem)'};
-//   }
-// `
-
 export default GlobalStyles;

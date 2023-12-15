@@ -3,7 +3,8 @@ import Credentials from "next-auth/providers/credentials";
 import { NextAuthOptions, Session } from "next-auth";
 import clientPromise from "./lib/mongodb";
 import { decrypt } from "./lib/cypher";
-import { UserEntity } from "./constants/userCollection";
+import { UserEntity, USERS_COLLECTION } from "./constants/userCollection";
+import DATABASE from "./constants/databaseInfo";
 
 export const authOptions = {
   theme: {
@@ -28,9 +29,9 @@ export const authOptions = {
 
         try {
           const client = await clientPromise;
-          const db = client.db("ticketri");
+          const db = client.db(DATABASE.DATABASE_NAME);
           const user = await db
-            .collection<UserEntity>("users")
+            .collection<UserEntity>(USERS_COLLECTION)
             .findOne({ email });
           if (!user) return null;
 
